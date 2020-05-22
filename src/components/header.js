@@ -1,11 +1,25 @@
+import React from "react"
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
-import React from "react"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import {
+  faGithub,
+  faTwitter,
+  faLinkedin,
+} from "@fortawesome/free-brands-svg-icons"
+import "./header.css"
+
+const HeaderLink = ({ to, name }) => {
+  return (
+    <Link to={to} className="header-link">
+      {name}
+    </Link>
+  )
+}
 
 const Header = ({ siteTitle }) => (
   <header
     style={{
-      background: `rebeccapurple`,
       marginBottom: `1.45rem`,
     }}
   >
@@ -14,19 +28,53 @@ const Header = ({ siteTitle }) => (
         margin: `0 auto`,
         maxWidth: 960,
         padding: `1.45rem 1.0875rem`,
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
       }}
     >
-      <h1 style={{ margin: 0 }}>
+      <div>
         <Link
           to="/"
           style={{
-            color: `white`,
-            textDecoration: `none`,
+            textDecoration: "none",
+            fontSize: "1.5rem",
           }}
         >
-          {siteTitle}
+          Roy Portas
         </Link>
-      </h1>
+
+        <a
+          href="https://github.com/r-portas"
+          target="_blank"
+          rel="noreferrer"
+          className="header-link"
+          style={{ marginLeft: "5px" }}
+        >
+          <FontAwesomeIcon icon={faGithub} />
+        </a>
+        <a
+          href="https://github.com/r-portas"
+          target="_blank"
+          rel="noreferrer"
+          className="header-link"
+        >
+          <FontAwesomeIcon icon={faTwitter} />
+        </a>
+        <a
+          href="https://github.com/r-portas"
+          target="_blank"
+          rel="noreferrer"
+          className="header-link"
+        >
+          <FontAwesomeIcon icon={faLinkedin} />
+        </a>
+      </div>
+
+      <div>
+        <HeaderLink to="/posts" name="POSTS" />
+        <HeaderLink to="/projects" name="PROJECTS" />
+      </div>
     </div>
   </header>
 )
