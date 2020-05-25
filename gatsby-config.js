@@ -105,6 +105,14 @@ module.exports = {
         ],
       },
     },
+    {
+      resolve: "gatsby-plugin-matomo",
+      options: {
+        siteId: "portfolio",
+        matomoUrl: "http://149.28.175.31:8080",
+        siteUrl: "https://beta.royportas.com",
+      },
+    },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
