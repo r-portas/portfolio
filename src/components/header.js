@@ -6,6 +6,7 @@ import {
   faGithub,
   faTwitter,
   faLinkedin,
+  faGitlab,
 } from "@fortawesome/free-brands-svg-icons"
 import "./header.css"
 
@@ -52,6 +53,15 @@ const Header = ({ siteTitle }) => (
           style={{ marginLeft: "5px" }}
         >
           <FontAwesomeIcon icon={faGithub} />
+        </a>
+        <a
+          href="https://gitlab.com/royportas"
+          target="_blank"
+          rel="noreferrer"
+          className="header-link"
+          style={{ marginLeft: "5px" }}
+        >
+          <FontAwesomeIcon icon={faGitlab} />
         </a>
         <a
           href="https://github.com/r-portas"
