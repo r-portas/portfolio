@@ -59,7 +59,6 @@ const Header = ({ siteTitle }) => (
           target="_blank"
           rel="noreferrer"
           className="header-link"
-          style={{ marginLeft: "5px" }}
         >
           <FontAwesomeIcon icon={faGitlab} />
         </a>
