@@ -108,8 +108,8 @@ module.exports = {
     {
       resolve: "gatsby-plugin-matomo",
       options: {
-        siteId: "portfolio",
-        matomoUrl: "http://149.28.175.31:8080",
+        siteId: "1",
+        matomoUrl: "https://stats.fouridian.com",
         siteUrl: "https://beta.royportas.com",
       },
     },
