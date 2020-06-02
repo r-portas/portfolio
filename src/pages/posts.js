@@ -6,37 +6,45 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 const PostsPage = ({ data }) => {
-  console.log(process.env.NODE_ENV)
   const { edges: posts } = data.allMdx
+  console.log(posts)
   return (
     <Layout>
       <SEO title="Posts" />
       <h1>Posts</h1>
-      <ul>
+      <div>
         {posts.map(({ node: post }) => {
           const isDraft = post.fields.slug.startsWith("/posts/drafts/")
 
           return (
-            <li key={post.id}>
+            <div key={post.id} style={{ paddingBottom: "1rem" }}>
               <Link
                 to={post.fields.slug}
                 style={{ textDecoration: "none", color: isDraft && "orange" }}
               >
-                <h3>
-                  {post.frontmatter.date}: {post.frontmatter.title}
+                <h3 style={{ marginBottom: "0.5rem" }}>
                   {isDraft && (
                     <FontAwesomeIcon
                       icon={faHardHat}
-                      style={{ marginLeft: "1rem" }}
+                      style={{ marginRight: "1rem" }}
                     />
                   )}
+                  {post.frontmatter.title}
                 </h3>
               </Link>
+              <p style={{ marginBottom: "0.5rem" }}>
+                <b>Last updated {post.frontmatter.date}</b>
+
+                {post.frontmatter.tags &&
+                  post.frontmatter.tags.map(t => (
+                    <span className="tag">{t}</span>
+                  ))}
+              </p>
               <p>{post.excerpt}</p>
-            </li>
+            </div>
           )
         })}
-      </ul>
+      </div>
     </Layout>
   )
 }
@@ -53,6 +61,7 @@ export const pageQuery = graphql`
           frontmatter {
             title
             date
+            tags
           }
           fields {
             slug
