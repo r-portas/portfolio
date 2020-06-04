@@ -7,7 +7,6 @@ import SEO from "../components/seo"
 
 const PostsPage = ({ data }) => {
   const { edges: posts } = data.allMdx
-  console.log(posts)
   return (
     <Layout>
       <SEO title="Posts" />
@@ -37,7 +36,12 @@ const PostsPage = ({ data }) => {
 
                 {post.frontmatter.tags &&
                   post.frontmatter.tags.map(t => (
-                    <span className="tag">{t}</span>
+                    <span
+                      className="badge badge-primary"
+                      style={{ marginLeft: "5px" }}
+                    >
+                      {t}
+                    </span>
                   ))}
               </p>
               <p>{post.excerpt}</p>

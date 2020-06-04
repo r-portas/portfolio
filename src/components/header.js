@@ -18,6 +18,24 @@ const HeaderLink = ({ to, name }) => {
   )
 }
 
+const LinkIcon = ({ icon, href, ariaLabel }) => {
+  return (
+    <a
+      href={href}
+      aria-label={ariaLabel}
+      target="_blank"
+      rel="noreferrer"
+      className="header-link"
+      style={{ marginLeft: "5px" }}
+    >
+      <FontAwesomeIcon
+        icon={icon}
+        style={{ height: "1.5rem", width: "1.5rem" }}
+      />
+    </a>
+  )
+}
+
 const Header = ({ siteTitle }) => (
   <header
     style={{
@@ -45,39 +63,26 @@ const Header = ({ siteTitle }) => (
           Roy Portas
         </Link>
 
-        <a
+        <LinkIcon
           href="https://github.com/r-portas"
-          target="_blank"
-          rel="noreferrer"
-          className="header-link"
-          style={{ marginLeft: "5px" }}
-        >
-          <FontAwesomeIcon icon={faGithub} />
-        </a>
-        <a
+          icon={faGithub}
+          ariaLabel="Github"
+        />
+        <LinkIcon
           href="https://gitlab.com/royportas"
-          target="_blank"
-          rel="noreferrer"
-          className="header-link"
-        >
-          <FontAwesomeIcon icon={faGitlab} />
-        </a>
-        <a
-          href="https://github.com/r-portas"
-          target="_blank"
-          rel="noreferrer"
-          className="header-link"
-        >
-          <FontAwesomeIcon icon={faTwitter} />
-        </a>
-        <a
-          href="https://github.com/r-portas"
-          target="_blank"
-          rel="noreferrer"
-          className="header-link"
-        >
-          <FontAwesomeIcon icon={faLinkedin} />
-        </a>
+          icon={faGitlab}
+          ariaLabel="Gitlab"
+        />
+        <LinkIcon
+          href="https://gitlab.com/royportas"
+          icon={faTwitter}
+          ariaLabel="Twitter"
+        />
+        <LinkIcon
+          href="https://gitlab.com/royportas"
+          icon={faLinkedin}
+          ariaLabel="LinkedIn"
+        />
       </div>
 
       <div>

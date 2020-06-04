@@ -15,7 +15,11 @@ export default function PageTemplate({ data: { mdx } }) {
       <h1>{mdx.frontmatter.title}</h1>
       {mdx.frontmatter.date && <h5>Published {mdx.frontmatter.date}</h5>}
       {mdx.frontmatter.tags &&
-        mdx.frontmatter.tags.map(t => <span className="tag">{t}</span>)}
+        mdx.frontmatter.tags.map(t => (
+          <span className="badge badge-primary" style={{ marginLeft: "5px" }}>
+            {t}
+          </span>
+        ))}
       <MDXProvider components={shortcodes}>
         <MDXRenderer>{mdx.body}</MDXRenderer>
       </MDXProvider>
