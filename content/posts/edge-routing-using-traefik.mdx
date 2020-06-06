@@ -62,9 +62,48 @@ networks:
 ```
 
 This configures Traefik to run as a reverse proxy exposed on 80 (for http) and 443 (for https).
+Make sure to replace the ACME email with the domain name you want to use.
+
+Next we will create another docker-compose file containing a simple "hello world" docker container, which we will expose through Traefik.
+Place this in `my-example-project/hello-world/docker-compose.yml`
+
+```yaml
+version: "3"
+
+services:
+  hello-world:
+    image: strm/helloworld-http
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.drone.loadbalancer.server.port=80"
+      - "traefik.http.routers.drone.rule=Host(`hello.example.com`)"
+      - "traefik.http.routers.drone.entrypoints=websecure"
+      - "traefik.http.routers.drone.tls.certresolver=letsencrypt"
+
+# Connect to the external network called "shared"
+# needs to be manually created first
+networks:
+  default:
+    external:
+      name: shared
+```
+
+Make sure to replace `hello.example.com` with your domain name.
 Before this will work you need to create an Docker network that is to be shared between docker-compose stacks, use the following command:
 
 ```bash
 docker network create shared
 ```
 
+Now we can bring the stacks up, start with the Traefik stack first, then bring up the Hello World stack
+
+```bash
+cd reverse-proxy && docker-compose up -d && cd ..
+cd hello-world && docker-compose up -d && cd ..
+```
+
+Now you should be able to access the container from `hello.example.com`
+
+```bash
+curl https://hello.example.com
+```
