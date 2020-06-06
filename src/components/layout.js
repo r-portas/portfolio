@@ -10,6 +10,8 @@ import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 import "./layout.scss"
 // import "./layout.css"
+import hljs from "highlight.js/lib/index"
+import "highlight.js/styles/obsidian.css"
 
 import Header from "./header"
 
@@ -23,6 +25,8 @@ const Layout = ({ children }) => {
       }
     }
   `)
+
+  hljs.initHighlighting()
 
   return (
     <>
