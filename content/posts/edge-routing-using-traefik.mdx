@@ -16,5 +16,46 @@ However I was reading over the Traefik docs and it seems to provide an even easi
 To get started I'm gonna create a new `docker-compose.yml` file to store my configuration. if you want to follow along create a new folder put the following `docker-compose.yml` in it.
 
 ```yaml
+version: "3"
 
+services:
+  reverse-proxy:
+    image: traefik:v2.2
+    command:
+      #- "--log.level=DEBUG"
+      #- "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.letsencrypt.acme.httpchallenge=true"
+      - "--certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web"
+      # - "--certificatesresolvers.letsencrypt.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      - "--certificatesresolvers.letsencrypt.acme.email=postmaster@example.com"
+      - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
+    ports:
+      # The HTTP port
+      - "80:80"
+      - "443:443"
+      # The Web UI (enabled by --api.insecure=true)
+      #- "8080:8080"
+    volumes:
+      # So that Traefik can listen to the Docker events
+      - /var/run/docker.sock:/var/run/docker.sock
+      # Persist the letsencrypt config to disk (e.g. certs, etc.)
+      - ./letsencrypt:/letsencrypt
+
+# Connect to the external network called "shared"
+# needs to be manually created first
+networks:
+  default:
+    external:
+      name: shared
+```
+
+This configures Traefik to run as a reverse proxy exposed on 80 (for http) and 443 (for https).
+Before this will work you need to create an Docker network that is to be shared between docker-compose stacks, use the following command:
+
+```bash
+docker network create shared
 ```
