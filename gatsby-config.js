@@ -50,6 +50,10 @@ module.exports = {
               sizeByPixelDensity: true,
             },
           },
+          {
+            resolve: `gatsby-remark-prismjs`,
+            options: {},
+          },
         ],
       },
     },

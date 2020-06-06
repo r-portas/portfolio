@@ -8,12 +8,8 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
-import "./layout.scss"
-// import "./layout.css"
-import hljs from "highlight.js/lib/index"
-import "highlight.js/styles/obsidian.css"
-
 import Header from "./header"
+import "./layout.scss"
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -25,8 +21,6 @@ const Layout = ({ children }) => {
       }
     }
   `)
-
-  hljs.initHighlighting()
 
   return (
     <>
