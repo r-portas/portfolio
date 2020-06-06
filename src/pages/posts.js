@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faHardHat } from "@fortawesome/free-solid-svg-icons"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import TagBadge from "../components/tagBadge"
 
 const PostsPage = ({ data }) => {
   const { edges: posts } = data.allMdx
@@ -35,14 +36,7 @@ const PostsPage = ({ data }) => {
                 <b>Last updated {post.frontmatter.date}</b>
 
                 {post.frontmatter.tags &&
-                  post.frontmatter.tags.map(t => (
-                    <span
-                      className="badge badge-primary"
-                      style={{ marginLeft: "5px" }}
-                    >
-                      {t}
-                    </span>
-                  ))}
+                  post.frontmatter.tags.map(t => <TagBadge tag={t} />)}
               </p>
               <p>{post.excerpt}</p>
             </div>
