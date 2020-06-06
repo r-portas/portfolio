@@ -5,15 +5,23 @@ date: "23-05-2020"
 ---
 
 I've been following the development of [Traefik](https://docs.traefik.io/) for some time, since it was originally inducted
-into the CNCF foundation.
-
-They recently released version 2 so I figured I'd give it a go to deploy some infrastructure that I use,
+into the CNCF foundation. They recently released version 2 so I figured I'd give it a go to deploy some infrastructure that I use,
 namely [Matomo](https://matomo.org/) and [Drone](https://drone.io/).
 
 I usually use Nginx as a reverse proxy installed on the host operating system and configure it as a reverse proxy to my containers.
 However I was reading over the Traefik docs and it seems to provide an even easier way to configure routing.
 
-To get started I'm gonna create a new `docker-compose.yml` file to store my configuration. if you want to follow along create a new folder put the following `docker-compose.yml` in it.
+To get started I'm gonna create a new `docker-compose.yml` file to store my configuration. if you want to follow along at home, create a new folder with the following structure:
+
+```
+my-example-project
+|- reverse-proxy
+|   |- docker-compose.yml
+|- hello-world
+|   |- docker-compose.yml
+```
+
+Now place this `docker-compose.yml` file in `my-example-project/reverse-proxy/docker-compose.yml`
 
 ```yaml
 version: "3"
@@ -59,3 +67,4 @@ Before this will work you need to create an Docker network that is to be shared 
 ```bash
 docker network create shared
 ```
+
