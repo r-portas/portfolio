@@ -2,4 +2,12 @@ $body-bg: #2f3337;
 $body-color: #e7e8eb;
 $primary: #ffe7a9;
 
+@font-face {
+  font-family: "DIN";
+  src: url("/fonts/din1451alt.ttf") format("truetype");
+  font-display: swap;
+}
+
+$font-family-sans-serif: "DIN", serif;
+
 @import "~bootstrap/scss/bootstrap";
