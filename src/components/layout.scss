@@ -2,12 +2,19 @@ $body-bg: #2f3337;
 $body-color: #e7e8eb;
 $primary: #ffe7a9;
 
-@font-face {
-  font-family: "DIN";
-  src: url("/fonts/din1451alt.ttf") format("truetype");
-  font-display: swap;
-}
+@import url("https://fonts.googleapis.com/css2?family=Overpass+Mono&family=Overpass:wght@400;700&display=swap");
 
-$font-family-sans-serif: "DIN", serif;
+// @font-face {
+//   font-family: "DIN";
+//   src: url("/fonts/din1451alt.ttf") format("truetype");
+//   font-display: swap;
+// }
+
+$font-family-sans-serif: "Overpass", sans-serif;
+$font-family-monospace: "Overpass Mono", monospace;
+
+code {
+  font-family: "Overpass Mono", monospace !important;
+}
 
 @import "~bootstrap/scss/bootstrap";
