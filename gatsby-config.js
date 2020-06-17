@@ -109,14 +109,14 @@ module.exports = {
         ],
       },
     },
-    // {
-    //   resolve: "gatsby-plugin-matomo",
-    //   options: {
-    //     siteId: "1",
-    //     matomoUrl: "https://stats.fouridian.com",
-    //     siteUrl: "https://beta.royportas.com",
-    //   },
-    // },
+    {
+      resolve: "gatsby-plugin-matomo",
+      options: {
+        siteId: "1",
+        matomoUrl: "https://stats.fouridian.com",
+        siteUrl: "https://beta.royportas.com",
+      },
+    },
     "gatsby-plugin-sass",
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
