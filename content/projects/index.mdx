@@ -6,6 +6,30 @@ tile: Projects
 
 Recently I've been working on a few projects in my spare time, most of these are available Github.
 
+## 2020: Brisbane Buses
+
+I spent a bit of time playing around with GTFS realtime feeds
+published by Translink.
+GTFS (General Transit Feed Specification) is a Google specification for public transport data,
+its how Google Maps displays public transport information. 
+
+The GTFS realtime feeds receives updates around every 5 seconds,
+so to give you an idea of the volume of data, every 5 seconds it publishes around 700 bus updates.
+
+The backend is written in NodeJS, which takes the protobuf encoded GTFS realtime feed and 
+publishes it as a GraphQL api (using GraphQL subscriptions to send down realtime updates to the clients).
+
+The frontend is written in React and uses MapboxGL for the map.
+
+The whole application is deployed using Docker, with 3 containers:
+- A container that hosts the static frontend using NGINX
+- A container that hosts the backend NodeJS application
+- Traefik that acts as a proxy for the other containers.
+
+![Buses 1](./buses_1.png)
+![Buses 2](./buses_2.png)
+
+
 ## 2019: Real Estate
 
 I moving apartments in 2019 and wanted a better way to search for potential apartments near the suburbs I want to move to.
