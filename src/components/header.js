@@ -1,6 +1,7 @@
 import React from "react"
-import { Link } from "gatsby"
+import { Link, useStaticQuery, graphql } from "gatsby"
 import PropTypes from "prop-types"
+import Img from "gatsby-image"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
   faGithub,
@@ -36,62 +37,85 @@ const LinkIcon = ({ icon, href, ariaLabel }) => {
   )
 }
 
-const Header = ({ siteTitle }) => (
-  <header
-    style={{
-      marginBottom: `1.45rem`,
-    }}
-  >
-    <div
+const Header = ({ siteTitle }) => {
+  const data = useStaticQuery(graphql`
+    query {
+      profile: file(relativePath: { eq: "roy-face-round.png" }) {
+        childImageSharp {
+          fixed(height: 60) {
+            ...GatsbyImageSharpFixed
+          }
+        }
+      }
+    }
+  `)
+
+  return (
+    <header
       style={{
-        margin: `0 auto`,
-        maxWidth: 960,
-        padding: `1.45rem 1.0875rem`,
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
+        marginBottom: `1.45rem`,
       }}
     >
-      <div>
-        <Link
-          to="/"
+      <div
+        style={{
+          margin: `0 auto`,
+          maxWidth: 960,
+          padding: `1.45rem 1.0875rem`,
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <div
           style={{
-            textDecoration: "none",
-            fontSize: "1.5rem",
+            display: "flex",
+            alignItems: "center",
           }}
         >
-          Roy Portas
-        </Link>
+          <Img
+            fixed={data.profile.childImageSharp.fixed}
+            style={{ marginRight: "1rem" }}
+          />
+          <Link
+            to="/"
+            style={{
+              textDecoration: "none",
+              fontSize: "1.5rem",
+            }}
+          >
+            Roy Portas
+          </Link>
 
-        <LinkIcon
-          href="https://github.com/r-portas"
-          icon={faGithub}
-          ariaLabel="Github"
-        />
-        <LinkIcon
-          href="https://gitlab.com/royportas"
-          icon={faGitlab}
-          ariaLabel="Gitlab"
-        />
-        <LinkIcon
-          href="https://gitlab.com/royportas"
-          icon={faTwitter}
-          ariaLabel="Twitter"
-        />
-        <LinkIcon
-          href="https://gitlab.com/royportas"
-          icon={faLinkedin}
-          ariaLabel="LinkedIn"
-        />
-      </div>
+          <LinkIcon
+            href="https://github.com/r-portas"
+            icon={faGithub}
+            ariaLabel="Github"
+          />
+          <LinkIcon
+            href="https://gitlab.com/royportas"
+            icon={faGitlab}
+            ariaLabel="Gitlab"
+          />
+          <LinkIcon
+            href="https://gitlab.com/royportas"
+            icon={faTwitter}
+            ariaLabel="Twitter"
+          />
+          <LinkIcon
+            href="https://gitlab.com/royportas"
+            icon={faLinkedin}
+            ariaLabel="LinkedIn"
+          />
+        </div>
 
-      <div>
-        <HeaderLink to="/posts" name="POSTS" />
-        <HeaderLink to="/projects" name="PROJECTS" />
+        <div>
+          <HeaderLink to="/posts" name="POSTS" />
+          <HeaderLink to="/projects" name="PROJECTS" />
+        </div>
       </div>
-    </div>
-  </header>
-)
+    </header>
+  )
+}
 
 Header.propTypes = {
   siteTitle: PropTypes.string,

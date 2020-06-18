@@ -36,7 +36,7 @@ const PostsPage = ({ data }) => {
                 <b>Last updated {post.frontmatter.date}</b>
 
                 {post.frontmatter.tags &&
-                  post.frontmatter.tags.map(t => <TagBadge tag={t} />)}
+                  post.frontmatter.tags.map(t => <TagBadge key={t} tag={t} />)}
               </p>
               <p>{post.excerpt}</p>
             </div>
