@@ -4,17 +4,15 @@ $primary: #ffe7a9;
 
 @import url("https://fonts.googleapis.com/css2?family=Overpass+Mono&family=Overpass:wght@400;700&display=swap");
 
-// @font-face {
-//   font-family: "DIN";
-//   src: url("/fonts/din1451alt.ttf") format("truetype");
-//   font-display: swap;
-// }
-
 $font-family-sans-serif: "Overpass", sans-serif;
 $font-family-monospace: "Overpass Mono", monospace;
 
 code {
   font-family: "Overpass Mono", monospace !important;
+}
+
+div.mermaid {
+  font-family: "Overpass Mono", monospace;
 }
 
 @import "~bootstrap/scss/bootstrap";

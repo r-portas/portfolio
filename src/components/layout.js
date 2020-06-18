@@ -8,8 +8,13 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
+import mermaid from "mermaid"
 import Header from "./header"
 import "./layout.scss"
+
+mermaid.mermaidAPI.initialize({
+  startOnLoad: false,
+})
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
