@@ -43,7 +43,7 @@ const Header = ({ siteTitle }) => {
       profile: file(relativePath: { eq: "roy-face-round.png" }) {
         childImageSharp {
           fixed(height: 60) {
-            ...GatsbyImageSharpFixed
+            ...GatsbyImageSharpFixed_withWebp_noBase64
           }
         }
       }
