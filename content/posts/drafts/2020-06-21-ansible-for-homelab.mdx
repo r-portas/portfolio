@@ -1,0 +1,22 @@
+---
+title: Using Ansible to provision my Homelab
+tags: ["linux", "homelab", "ansible"]
+date: "21-06-2020"
+---
+
+I have a dedicated Linux server at home, its a [Intel NUC](https://www.intel.com/content/www/us/en/products/boards-kits/nuc.html).
+I use it to host [Plex](https://www.plex.tv/), [Miniflux](https://miniflux.app/) and [Home Assistant](https://www.home-assistant.io/).
+
+My old solution for deploying these was to have a handful of Docker Compose files, but I wanted to replace it with something more maintainable and repeatable.
+I also used this as an excuse for me to learn Ansible more.
+
+## My Goals
+
+I have some goals of moving my homelab to Ansible,
+namely:
+
+- Easy deployments, I want to run a single Ansible command.
+- Configuration versioned in source control. I shouldn't need to create any bespoke environment variable files. When I clone the source code repo it should have everything in that I need to deploy it. 
+- Reproducible to other hosts. If I replace my Homelab hardware, I should be able to deploy to the new host with a single command.
+- A prod-like dev environment. I have a Vagrant configuration that spins up a local VM which I can run the Ansible playbooks against.
+This VM lets me test changes before deploying it to my homelab.
