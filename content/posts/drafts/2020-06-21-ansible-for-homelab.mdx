@@ -10,6 +10,16 @@ I use it to host [Plex](https://www.plex.tv/), [Miniflux](https://miniflux.app/)
 My old solution for deploying these was to have a handful of Docker Compose files, but I wanted to replace it with something more maintainable and repeatable.
 I also used this as an excuse for me to learn Ansible more.
 
+## But why use Ansible and Docker over Kubernetes?
+
+I imagine most people who read this would ask this question when seeing I'm not using Kubernetes to solve this problem.
+
+I did some reading and thinking around this area and I determined that you need to reach a certain point for Kubernetes to be worth it.
+Before I go into more detail I want to make it clear that this is just my opinion based on my experiments with Kubernetes and some reading I did.
+
+- Kubernetes works best when you want/need your application to run across multiple hosts.
+
+
 ## My Goals
 
 I have some goals of moving my homelab to Ansible,
@@ -20,3 +30,7 @@ namely:
 - Reproducible to other hosts. If I replace my Homelab hardware, I should be able to deploy to the new host with a single command.
 - A prod-like dev environment. I have a Vagrant configuration that spins up a local VM which I can run the Ansible playbooks against.
 This VM lets me test changes before deploying it to my homelab.
+
+## Some Unsolved Questions
+
+I still have some unsolved questions with my setup

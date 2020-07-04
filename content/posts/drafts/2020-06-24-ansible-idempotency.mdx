@@ -1,0 +1,37 @@
+---
+title: Idempotency with Ansible
+tags: ["ansible"]
+date: "24-06-2020"
+---
+
+I've started my Ansible adventures a few weeks back, since then I've written around 8 playbooks.
+The majority of the playbooks do fairly standard stuff, including
+
+- Installing software through a package manager
+- Run docker containers
+- Template files
+
+## What is idempotency in Ansible?
+
+> Running tasks again should result in all them being "ok", not "changed"
+
+## How to write idempotent tasks?
+
+> Stick to using Ansible modules when available (e.g. use `apt` module over `apt install` shell command)
+> You can have idempotent shell commands that still report "changed"
+
+### Examples
+
+```yml
+- name: install nvm
+  shell: >
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+  args:
+    creates: "{{ ansible_user_dir }}/.nvm/nvm.sh"
+```
+
+```yml
+- name: enable backwards compatibility for cgroups
+  become: yes
+  shell: grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=0"
+```

@@ -1,0 +1,43 @@
+---
+title: 4K Monitors and Linux
+tags: ["linux", "gnome", "hi-dpi"]
+date: "01-07-2020"
+---
+
+I've been using Linux with a 4K display recently and found a few tricks to make the experience better.
+I found overall 4K support isn't as great as Windows or MacOS, but after some tweaking I got to a point that I'm happy with.
+
+## How to Fix
+
+#### GNOME scaling causes browsers and Electron apps to be sluggish and laggy
+
+This is more noticable if you open a JavaScript heavy page like Reddit or scroll through a large file in VSCode,
+and the performance gets worse the bigger the window is.
+A fix I use is to set the GNOME scaling to 100% (from the default of 200%) and increase the font size in GNOME Tweaks to 1.4.
+
+Finding the root cause of the issue was a bit tricky cause I originally thought that the Intel integrated graphics chipset wasn't powerful enough to run it.
+But after a bit of experimentation I found that setting the scaling to 100% and instead increasing the system font size to 1.4 through GNOME Tweaks fixed the performance issues.
+
+If I were to guess why this happens, I would say that its something to do with browser rendering engines not liking how GNOME scales the interface.
+The interface looks a bit smaller but I'm getting used to it, the much better performance is worth it.
+
+#### Xorg over Wayland
+I noticed switching to Xorg instead of Wayland improved the general performance a little (I'm running on Intel integrated graphics),
+the biggest difference I've noticed from this is in VSCode, as scrolling through large files in the editor is much smoother now.
+(I think Electron apps use an X translation layer called XWayland that seemed to slow things down)
+
+#### Nvidia Specific fixes
+I also tested this with a NVIDIA GPU (a fairly old one), and found that adding the `--disable-gpu` flag to VSCode improved the responsiveness a lot,
+this is particularly noticable when scrolling through large files.
+
+## Remaining problems
+
+The biggest problem I've encountered is support for 4K and 1080p displays simultaniously.
+I think per monitor scaling is supported in Wayland, but since I've had bad experience with scaling in general I think I'd avoid it.
+I think the best solution to this is per monitor font size
+
+## Conclusion
+
+Overall I am really happy with 4K support in Linux at the moment.
+My laptop seems to perform much better with Linux than MacOS,
+particularly with the responsiveness of the OS in general.

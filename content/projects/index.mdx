@@ -18,12 +18,14 @@ its how Google Maps displays public transport information.
 The GTFS realtime feeds receives updates around every 5 seconds,
 so to give you an idea of the volume of data, every 5 seconds it publishes around 700 bus updates.
 
-The backend is written in NodeJS, which takes the protobuf encoded GTFS realtime feed and 
+The backend is written in NodeJS with Typescript, which takes the protobuf encoded GTFS realtime feed and 
 publishes it as a GraphQL api (using GraphQL subscriptions to send down realtime updates to the clients).
 
-The frontend is written in React and uses MapboxGL for the map.
+The frontend is written in React and Typescript, and uses MapboxGL for the map.
+It was written to be as efficient as possible, only updating the buses that have changed since the last update.
+The end result is a dashboard that can easily display over 1600 buses in realtime without noticable lag.
 
-The whole application is deployed using Docker, with 3 containers:
+The application is deployed using Docker, with 3 containers:
 - A container that hosts the static frontend using NGINX
 - A container that hosts the backend NodeJS application
 - Traefik that acts as a proxy for the other containers.
@@ -32,6 +34,7 @@ I used this as an excuse to explore building a full stack real time application
 that processes a sizable amount of data every few seconds. A couple of key goals of the project were to:
 - Experiment with GraphQL to provide real time data to a web application
 - Create a map based React application that was performance enough to handle the volume of real time data
+- Explore the performance characteristics of the frameworks I'm using
 
 ![Buses 2](./buses_2.png)
 
