@@ -1,0 +1,15 @@
+---
+title: Fedora Notes
+tags: ["linux", "fedora"]
+date: "01-07-2020"
+---
+
+A few months back I switched from Ubuntu to Fedora, and I've been really impressed with how stable and fast the system has been.
+
+Here are a handful of notes I've made during daily use:
+
+## Using node-gyp
+
+node-gyp compiles C++ based modules for Node.JS, it has a dependency on Python 2 (at least the version I was using).
+The only problem is Python 2 has been removed from Fedora 32, but it can be added by installing `python27` package.
+Once the package is installed node-gyp should work correctly.
