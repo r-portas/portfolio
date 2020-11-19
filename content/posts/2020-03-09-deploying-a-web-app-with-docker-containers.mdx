@@ -1,0 +1,49 @@
+---
+title: "Deploying a Web App with Docker containers"
+date: "2020-03-09"
+tags:
+  - Docker
+  - Deployment
+  - HTTPS
+---
+
+## Introduction
+
+Last weekend I was looking at a simple way of deploying a project I was working on,
+the project is a series of docker containers managed by Docker Compose.
+
+The dockerfiles mostly following examples I found for [a node backend](https://nodejs.org/en/docs/guides/nodejs-docker-webapp/) and a [create-react-app frontend](https://mherman.org/blog/dockerizing-a-react-app/)
+I didn't want to bother pushing the images up to a registry, I just wanted them to be built by the server (its just a side project of mine afterall).
+
+So my end goal of deploying is:
+
+- Be able to clone the source code repo on the server
+- Run `docker-compose up --build` to build the containers
+- View the site in the browser, no other configuration needed
+
+## Issues
+
+I ran into a few issues getting it up and running, luckily they weren't too hard to fix
+
+### Memory Issues
+
+My server only have 1GB of RAM and I ran into problems when I tried building the react app. It turns out that the build process can use around 3GB of RAM to build the app. (I still don't understand why webpack/babel/typescript uses this much memory for my basic app). The solution was to create a large swap file, I followed [this guide](https://www.digitalocean.com/community/tutorials/how-to-add-swap-space-on-ubuntu-16-04) and gave myself a 2GB swapfile.
+
+This was enough to get my builds working, however its stopgap measure. I think in the future I will write my own webpack and see if I can speed up the build times and decrease the memory usage.
+
+### Certificates and HTTPS
+
+I wanted to run my site under HTTPS, using [Let's Encrypt](https://letsencrypt.org/), so I was figuring out how to get it to play nice with Docker containers. While thinking about the problem I came up with some things I needed to solve:
+
+- I still want to run the project locally without any HTTPS. I still want to go `docker-compose up` and browse to the URL
+- I already have a NGINX reverse proxy running as a container so everything is served on the same port but different paths
+- I want minimal setup on the server for setting up HTTPS
+- I want Let's Encrypt to automatically renew my certs
+
+I eventually decided to do the following:
+
+- Run NGINX on the server (outside of a container) and configure it to do the SSL termination and `proxy_pass` it to the port that the reverse proxy container is listening on
+- Configure the reverse proxy container (also NGINX) to handle just HTTP (since we have already terminated the SSL), that way in development I don't have to worry have HTTPS certificates.
+
+I ended up really liking this solution because it nicely separates the application from the transport protocols. From the perspective of the developer, they don't need to know anything about how HTTPS is handled, since it gets terminated before it reaches the app.
+Additionally it means the setup was really easy because I can use the default Let's Encrypt instructions that automatically sets everything up, and the full NGINX config was only a few lines (just a `proxy_pass` really).

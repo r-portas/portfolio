@@ -1,0 +1,103 @@
+---
+title: Prometheus and Grafana configuration for Docker Compose
+date: "2020-02-25"
+tags:
+  - Docker
+  - Monitoring
+  - Prometheus
+  - Grafana
+---
+
+## Goal
+
+Create a Prometheus and Grafana configuration that doesn't need manual configuration after spinning up the containers.
+I should be able to do `docker-compose up` and then open Grafana on `localhost:3000` and see my dashboards pre-loaded with data coming in.
+
+## Docker Configuration
+
+docker-compose.yml
+
+```
+prometheus:
+  image: prom/prometheus
+  volumes:
+    - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+  ports:
+    - 9090:9090
+
+grafana:
+  image: grafana/grafana
+  volumes:
+    - ./grafana/grafana.ini:/etc/grafana/grafana.ini
+    - ./grafana/datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
+    - ./grafana/dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yml
+    - ./grafana/dashboards:/etc/grafana/provisioning/dashboards/dashboards
+  ports:
+    - 3000:3000
+```
+
+prometheus/prometheus.yml
+
+```
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  - job_name: Prometheus
+    static_configs:
+      - targets: ["prometheus:9090"]
+  # Add other services here
+```
+
+grafana/grafana.ini
+
+```ini
+instance_name = My Instance
+
+[security]
+admin_user = admin
+admin_password = admin
+```
+
+grafana/datasources.yml
+
+```
+apiVersion: 1
+
+datasources:
+  - name: Prometheus
+    type: prometheus
+    access: proxy
+    url: http://prometheus:9090
+```
+
+grafana/dashboards.yml
+
+```
+apiVersion: 1
+
+providers:
+  - name: "Dashboards"
+    folder: ""
+    type: file
+    editable: true
+    options:
+      path: /etc/grafana/provisioning/dashboards/dashboards
+```
+
+Place your dashboard JSON files under grafana/dashboards/
+
+The final file structure will look like this:
+
+```
+docker-monitoring
+|- docker-compose.yml
+|- grafana
+|   |- dashboards.yml
+|   |- datasources.yml
+|   |- grafana.ini
+|   |- dashboards
+|       |- <place dashboards here>
+|- prometheus
+    |- prometheus.yml
+```

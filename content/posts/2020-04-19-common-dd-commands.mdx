@@ -1,0 +1,16 @@
+---
+title: "Common dd commands"
+date: "2020-04-19"
+tags:
+  - Linux
+---
+
+`dd` is a common unix tool for doing disk manipulation. One of the most common uses is writing ISOs to USBs.
+
+## Writing an ISO to USB
+
+The below command writes an ISO to a USB, to find the device to write to, run `lsblk`
+
+```bash
+sudo dd bs=4M if=image.iso of=/dev/sdX conv=fdatasync status=progress && sync
+```

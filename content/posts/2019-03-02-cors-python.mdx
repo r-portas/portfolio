@@ -1,0 +1,121 @@
+---
+title: "Setting up CORS with Python"
+date: "2019-03-02"
+toc: true
+tags:
+  - python
+  - CORS
+---
+
+## What is CORS?
+
+CORS (Cross Origin Resource Sharing) allows access to resources from other domains,
+a good use case for this is a web app trying to fetch data from an API on another
+domain. CORS is only required when trying to fetch data from a _browser_,
+as browsers by default will block requests to different origins (domains).
+
+CORS uses HTTP headers to tell the browser if it has permission to fetch the resources.
+
+Browsers use a preflight header to determine if it has permission to interact with
+the domain. This preflight header takes the form of a `OPTIONS` request, usually
+
+sending the following HTTP headers to the server:
+
+- `Access-Control-Request-Method`: The method of the request, e.g. `GET` if trying to get data
+- `Access-Control-Request-Headers`: The headers that will be sent to the server
+
+The response will usually contain the following headers:
+
+- `Access-Control-Allow-Origin`: The origins that are allowed to access
+  the resource (specify '\*' for all)
+- `Access-Control-Allow-Methods`: The methods that are allowed on the resource, e.g. `"GET,POST,OPTIONS"`, remember to include `OPTIONS` in it,
+  as its required for the preflight header
+- `Access-Control-Allow-Headers`: The additional headers that are
+  allowed on the resource
+
+## Implementing a simple Python server that has CORS
+
+Python has a simple HTTP server built-in, that can be extended easily.
+
+It can be imported like so:
+
+```python
+from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
+```
+
+[BaseHTTPServer](https://docs.python.org/3/library/http.server.html#http.server.BaseHTTPRequestHandler)
+is a base class that needs to be subclassed to do anything useful.
+The most useful methods that can be implemented include:
+
+- `do_GET`: Handles a GET request
+- `do_POST`: Handles a POST request
+- `do_OPTIONS`: Handle an OPTIONS request (which is the preflight request for CORS)
+
+We create a small function called `_send_cors-headers` which sends the required headers.
+Its important to add all the methods that you wish to use with the API in the
+`Access-Control-Allow-Methods` header, which in this case is `GET,POST,OPTIONS`.
+
+The `do_OPTIONS` method only needs to return a 200 response, CORS only
+cares about what headers it gets from the OPTIONS request, not the actual response
+body.
+
+## Full Code
+
+```python
+#!/usr/bin/env python3
+
+from http.server import BaseHTTPRequestHandler, HTTPServer
+from json import dumps
+
+""" The HTTP request handler """
+class RequestHandler(BaseHTTPRequestHandler):
+
+  def _send_cors_headers(self):
+      """ Sets headers required for CORS """
+      self.send_header("Access-Control-Allow-Origin", "*")
+      self.send_header("Access-Control-Allow-Methods", "GET,POST,OPTIONS")
+      self.send_header("Access-Control-Allow-Headers", "x-api-key,Content-Type")
+
+  def send_dict_response(self, d):
+      """ Sends a dictionary (JSON) back to the client """
+      self.wfile.write(bytes(dumps(d), "utf8"))
+
+  def do_OPTIONS(self):
+      self.send_response(200)
+      self._send_cors_headers()
+      self.end_headers()
+
+  def do_GET(self):
+      self.send_response(200)
+      self._send_cors_headers()
+      self.end_headers()
+
+      response = {}
+      response["status"] = "OK"
+      self.send_dict_response(response)
+
+  def do_POST(self):
+      self.send_response(200)
+      self._send_cors_headers()
+      self.send_header("Content-Type", "application/json")
+      self.end_headers()
+
+      dataLength = int(self.headers["Content-Length"])
+      data = self.rfile.read(dataLength)
+
+      print(data)
+
+      response = {}
+      response["status"] = "OK"
+      self.send_dict_response(response)
+
+
+print("Starting server")
+httpd = HTTPServer(("127.0.0.1", 8000), RequestHandler)
+print("Hosting server on port 8000")
+httpd.serve_forever()
+```
+
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbLTE3MDExOTc2NjRdfQ==
+-->

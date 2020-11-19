@@ -1,0 +1,81 @@
+---
+title: "Home Automation with Home Assistant"
+date: "2019-04-26"
+tags:
+  - Home Automation
+---
+
+# What is it?
+
+[Home Assistant](https://www.home-assistant.io/) is an open source home automation platform.
+Conceptually it is a central platform that can communicate with smart home devices (such as lights, motion detectors, alarm systems, thermostats and much more).
+
+For people familiar with smart home devices, the most annoying problem with them is every manufacturer has a different app to control their devices.
+Since I have Wemo switches, TP Link switches and Hue lights, I need to constantly switch between the 3 apps to control my home.
+
+Home Assistant solves this problem by acting as a central platform to control all your smart devices through, which makes a big difference in the usability of smart house devices.
+
+Home Assistant can be installed on a Raspberry PI or any other lightweight server that supports Python 3.
+
+# My Use Case
+
+I wanted to use Home Assistant to allow me to control my existing smart devices through a single, uniform interface.
+
+# Hosting
+
+Home Assistant can run pretty well on a Rasberry Pi, however I have an old Windows laptop that is perfect for the job.
+
+# Device Configuration
+
+## TP Link Switches
+
+I found that the TP Link switches disconnect randomly, this can be fixed by doing the following:
+
+1. Assign a fixed IP address for the switch using address reservation on the router (Google "Address reservation" + your router name), take note of the IP address you assign.
+2. Restart the switch
+3. Manually configure the TP Link setting in Home Assistant, [see here for an example](https://www.home-assistant.io/components/tplink/#manual-configuration-example)
+
+Assigning a static IP address seems to make the TP Link switches more reliable
+
+## Belkin Wemo
+
+My Wemo switch was immediately automatically discovered by Home Assistant and works flawlessly.
+
+## Windows Notes
+
+### Installation
+
+Install Python 3 and then run the following in PowerShell
+
+```cmd
+pip install homeassistant
+```
+
+Some Home Assistant plugins require the Visual Studio c++ tools to compile them, [here is a link](https://www.scivision.dev/python-windows-visual-c-14-required/) to installing that on Windows.
+
+### Running
+
+Its best to run Home Assistant as a service, as that way it will restart automatically and start when the computer boots.
+However for testing purposes it can be ran using the following PowerShell command
+
+```cmd
+python -m homeassistant
+```
+
+### Running as a service
+
+I came across a few things that simplied the installation for Windows.
+
+- [Running Home Assistant as a service](https://blog.jenyay.com/install-home-assistant-as-windows-service/)
+
+This is handy for restarting Home Assistant if it crashes, make sure to look at the recovery settings in the Services program after the service is created.
+
+When creating the service, point the service to the python executable at `C:\python3X\python.exe` and add the additional arguments, below is what mine looks like
+
+```cmd
+C:\python37\python.exe -m homeassistant -c C:\<path_to_home_assistant_config>
+```
+
+# Future Improvements
+
+- Setup Splunk to log metrics
