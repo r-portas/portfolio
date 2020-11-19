@@ -1,3 +1,8 @@
+const ignoredFiles = []
+if (process.env.NODE_ENV === `production`) {
+  ignoredFiles.push(`${__dirname}/content/posts/drafts/*`)
+}
+
 module.exports = {
   siteMetadata: {
     title: `Roy Portas`,
@@ -19,9 +24,7 @@ module.exports = {
       options: {
         name: `posts`,
         path: `${__dirname}/content/`,
-        ignore: process.env.NODE_ENV === `production` && [
-          `${__dirname}/content/posts/drafts/*`,
-        ],
+        ignore: ignoredFiles,
       },
     },
     `gatsby-transformer-sharp`,
@@ -110,14 +113,11 @@ module.exports = {
       },
     },
     {
-      resolve: "gatsby-plugin-matomo",
+      resolve: "gatsby-plugin-sass",
       options: {
-        siteId: "1",
-        matomoUrl: "https://stats.fouridian.com",
-        siteUrl: "https://beta.royportas.com",
+        implementation: require("sass"),
       },
     },
-    "gatsby-plugin-sass",
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
