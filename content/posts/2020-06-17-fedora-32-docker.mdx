@@ -1,10 +1,11 @@
 ---
 title: Installing Docker on Fedora 32
 tags: ["fedora", "docker"]
-date: "17-06-2020"
+date: "2020-06-17"
 ---
 
 Installing Docker on Fedora 32 is a bit tricky, namely for these reasons:
+
 - There isn't an official repo for Fedora 32 yet, in the meantime we have to use Fedora 31
 - `firewalld` now uses `nftables` as the default backend but Docker seems to only work with `iptables`
 - Fedora switched to cgroups v2, but Docker doesn't support it yet
@@ -32,4 +33,5 @@ Luckily fixing these are pretty straight forward, I've coded these up into an An
 ```
 
 ## Resources:
+
 - https://dev.to/ozorest/fedora-32-how-to-solve-docker-internal-network-issue-22me

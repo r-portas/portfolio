@@ -1,0 +1,36 @@
+---
+title: Setting up a local Kubernetes cluster with k3d and k3s
+tags:
+  - Kubernetes
+date: "2020-11-20"
+---
+
+## Intro
+
+[k3s](https://k3s.io/) is a lightweight Kubernetes distribution originally developed by Rancher, but now under the ownership of the CNCF. It aims to be a very lightweight and simple to use, which makes it perfect for use in development and small scale clusters.
+
+## Installing k3s on a server
+
+By default k3s comes with Traefik v1 as the default ingress controller, most of the time I prefer to bring my own ingress controller, my personal choice is [ingress-nginx](<[https://kubernetes.github.io/ingress-nginx/](https://kubernetes.github.io/ingress-nginx/)>) because is fairly straightforward and easy to use (and also a breeze to setup TLS certificates via [cert-manager](<[https://cert-manager.io/docs/](https://cert-manager.io/docs/)>).
+
+Traefik can be disabled during installation using the following command:
+
+```bash
+curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="server --disable traefik" sh
+```
+
+## Starting a local development cluster with k3d
+
+[k3d](https://k3d.io/) is a small tool that can spin up local clusters inside docker containers. The really cool selling point of k3d is that it allows you to spin up both single and multi node clusters, which is handy as you can simulate multi-node clusters.
+
+The below command is what I use to spin up a 2 node cluster, the arguments are as follows:
+
+```bash
+k3d cluster create default \
+    --agents=2 \
+    -p "8080:80@loadbalancer" \
+    -v /dev/mapper:/dev/mapper \
+    --k3s-server-arg --disable=traefik
+```
+
+The `-p "8080:80@loadbalancer"` line exposes port 80 on the load balancer to port 8080 on your host machine. The `-v /dev/mapper:/dev/mapper` line is required if your host operating system using `btfs` (like recent versions of Fedora). The final line disables Traefik.
