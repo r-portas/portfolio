@@ -1,7 +1,7 @@
 ---
 title: Using Ansible to provision my Homelab
 tags: ["linux", "homelab", "ansible"]
-date: "21-06-2020"
+date: "2020-06-21"
 ---
 
 I have a dedicated Linux server at home, its a [Intel NUC](https://www.intel.com/content/www/us/en/products/boards-kits/nuc.html).
@@ -19,17 +19,16 @@ Before I go into more detail I want to make it clear that this is just my opinio
 
 - Kubernetes works best when you want/need your application to run across multiple hosts.
 
-
 ## My Goals
 
 I have some goals of moving my homelab to Ansible,
 namely:
 
 - Easy deployments, I want to run a single Ansible command.
-- Configuration versioned in source control. I shouldn't need to create any bespoke environment variable files. When I clone the source code repo it should have everything in that I need to deploy it. 
+- Configuration versioned in source control. I shouldn't need to create any bespoke environment variable files. When I clone the source code repo it should have everything in that I need to deploy it.
 - Reproducible to other hosts. If I replace my Homelab hardware, I should be able to deploy to the new host with a single command.
 - A prod-like dev environment. I have a Vagrant configuration that spins up a local VM which I can run the Ansible playbooks against.
-This VM lets me test changes before deploying it to my homelab.
+  This VM lets me test changes before deploying it to my homelab.
 
 ## Some Unsolved Questions
 

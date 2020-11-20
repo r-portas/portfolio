@@ -1,7 +1,7 @@
 ---
 title: 4K Monitors and Linux
 tags: ["linux", "gnome", "hi-dpi"]
-date: "01-07-2020"
+date: "2020-07-01"
 ---
 
 I've been using Linux with a 4K display recently and found a few tricks to make the experience better.
@@ -22,11 +22,13 @@ If I were to guess why this happens, I would say that its something to do with b
 The interface looks a bit smaller but I'm getting used to it, the much better performance is worth it.
 
 #### Xorg over Wayland
+
 I noticed switching to Xorg instead of Wayland improved the general performance a little (I'm running on Intel integrated graphics),
 the biggest difference I've noticed from this is in VSCode, as scrolling through large files in the editor is much smoother now.
 (I think Electron apps use an X translation layer called XWayland that seemed to slow things down)
 
 #### Nvidia Specific fixes
+
 I also tested this with a NVIDIA GPU (a fairly old one), and found that adding the `--disable-gpu` flag to VSCode improved the responsiveness a lot,
 this is particularly noticable when scrolling through large files.
 

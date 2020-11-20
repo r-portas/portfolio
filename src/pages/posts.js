@@ -51,7 +51,10 @@ export default PostsPage
 
 export const pageQuery = graphql`
   query postsIndex {
-    allMdx(filter: { fileAbsolutePath: { regex: "/posts/" } }) {
+    allMdx(
+      filter: { fileAbsolutePath: { regex: "/posts/" } }
+      sort: { fields: frontmatter___date, order: DESC }
+    ) {
       edges {
         node {
           id
