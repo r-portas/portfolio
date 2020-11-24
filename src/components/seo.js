@@ -25,6 +25,18 @@ function SEO({ description, lang, meta, title }) {
     `
   )
 
+  const panelbearId = process.env.GATSBY_PANELBEAR_SITE_ID
+
+  if (panelbearId) {
+    window.panelbear =
+      window.panelbear ||
+      function () {
+        window.panelbearQ = window.panelbearQ || []
+        panelbearQ.push(arguments)
+      }
+    panelbear("config", { site: panelbearId })
+  }
+
   const metaDescription = description || site.siteMetadata.description
 
   return (
@@ -73,6 +85,12 @@ function SEO({ description, lang, meta, title }) {
         href="https://fonts.googleapis.com/css2?family=Overpass+Mono&family=Overpass:wght@400;700&display=swap"
         rel="stylesheet"
       ></link>
+      {panelbearId && (
+        <script
+          async
+          src={`https://cdn.panelbear.com/analytics.js?site=${panelbearId}`}
+        ></script>
+      )}
     </Helmet>
   )
 }
