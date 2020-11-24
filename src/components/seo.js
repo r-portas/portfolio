@@ -28,7 +28,7 @@ function SEO({ description, lang, meta, title }) {
   const panelbearId = process.env.GATSBY_PANELBEAR_SITE_ID
 
   // Check if window is defined, for server side rendered handling
-  if (window && panelbearId) {
+  if (typeof window != "undefined" && panelbearId) {
     window.panelbear =
       window.panelbear ||
       function () {
