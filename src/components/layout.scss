@@ -2,15 +2,15 @@ $body-bg: #2f3337;
 $body-color: #e7e8eb;
 $primary: #ffe7a9;
 
-$font-family-sans-serif: "Overpass", sans-serif;
-$font-family-monospace: "Overpass Mono", monospace;
+// $font-family-sans-serif: "Overpass", sans-serif;
+// $font-family-monospace: "Overpass Mono", monospace;
 
-code {
-  font-family: "Overpass Mono", monospace !important;
-}
+// code {
+//   font-family: "Overpass Mono", monospace !important;
+// }
 
-div.mermaid {
-  font-family: "Overpass Mono", monospace;
-}
+// div.mermaid {
+//   font-family: "Overpass Mono", monospace;
+// }
 
 @import "~bootstrap/scss/bootstrap";

@@ -27,7 +27,6 @@ const LinkIcon = ({ icon, href, ariaLabel }) => {
       target="_blank"
       rel="noreferrer"
       className="header-link header-profile-icon"
-      style={{ marginLeft: "5px" }}
     >
       <FontAwesomeIcon
         icon={icon}
