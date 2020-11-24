@@ -8,6 +8,7 @@ module.exports = {
     title: `Roy Portas`,
     description: `The portfolio and blog of Roy Portas`,
     author: `Roy Portas`,
+    authorTwitter: `RoyPortas`,
     siteUrl: "https://beta.royportas.com",
   },
   plugins: [
