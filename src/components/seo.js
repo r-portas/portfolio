@@ -27,7 +27,8 @@ function SEO({ description, lang, meta, title }) {
 
   const panelbearId = process.env.GATSBY_PANELBEAR_SITE_ID
 
-  if (panelbearId) {
+  // Check if window is defined, for server side rendered handling
+  if (window && panelbearId) {
     window.panelbear =
       window.panelbear ||
       function () {
