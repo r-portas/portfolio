@@ -8,7 +8,7 @@ module.exports = {
     title: `Roy Portas`,
     description: `The portfolio and blog of Roy Portas`,
     author: `Roy Portas`,
-    siteUrl: "https://royportas.com",
+    siteUrl: "https://beta.royportas.com",
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -118,6 +118,7 @@ module.exports = {
         implementation: require("sass"),
       },
     },
+    `gatsby-plugin-sitemap`,
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
