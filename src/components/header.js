@@ -26,7 +26,7 @@ const LinkIcon = ({ icon, href, ariaLabel }) => {
       aria-label={ariaLabel}
       target="_blank"
       rel="noreferrer"
-      className="header-link"
+      className="header-link header-profile-icon"
       style={{ marginLeft: "5px" }}
     >
       <FontAwesomeIcon
@@ -56,22 +56,8 @@ const Header = ({ siteTitle }) => {
         marginBottom: `1.45rem`,
       }}
     >
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: 960,
-          padding: `1.45rem 1.0875rem`,
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
+      <div className="header-container">
+        <div className="header-profile">
           <Img
             fixed={data.profile.childImageSharp.fixed}
             style={{ marginRight: "1rem" }}

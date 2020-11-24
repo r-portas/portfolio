@@ -32,10 +32,12 @@ function SEO({ description, lang, meta, title }) {
     window.panelbear =
       window.panelbear ||
       function () {
-        window.panelbearQ = window.panelbearQ || []
-        panelbearQ.push(arguments)
+        if (!window.panelbearQ) {
+          window.panelbearQ = []
+        }
+        window.panelbearQ.push(arguments)
       }
-    panelbear("config", { site: panelbearId })
+    window.panelbear("config", { site: panelbearId })
   }
 
   const metaDescription = description || site.siteMetadata.description
