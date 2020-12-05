@@ -1,0 +1,36 @@
+---
+title: Mounting network shares on Linux
+tags:
+  - Linux
+date: "2020-12-04"
+---
+
+I have a Synology NAS at home, which acts as a file share that
+my server writes to.
+I ran into some problems using the default network share functionality in GNOME's Nautilus, namely unable to delete files or folders.
+I suspect this is because of the file permissions, as the files are written by a app running inside Docker container (which I guess would be running as root inside the container).
+
+The good news is mounting the network share via `cif-utils` and `fstab` worked seamlessly.
+
+# Setting it up
+
+1. Create a directory under `/media` for the mount point of the network share, I called mine `nas`, so I did `sudo mkdir /media/nas`.
+2. Create a credentials file in your home folder, I create mine at `~/.smb` which should contain the following:
+
+```
+# ~/.smb
+user=<NETWORK_SHARE_USERNAME>
+password=<NETWORK_SHARE_PASSWORD>
+```
+
+3. Add an entry to your fstab file at `/etc/fstab`
+
+```
+# /etc/fstab
+
+//<IP_OR_DOMAIN_OF_SHARE>/<SHARE_NAME>  /media/nas  cifs    uid=1000,gid=1000,credentials=/home/<USER>/.smb     0   0
+```
+
+4. Apply the changes by running `sudo mount -a`
+
+The mount should now appear and you should have access to your files.
