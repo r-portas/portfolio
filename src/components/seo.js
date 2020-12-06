@@ -75,6 +75,10 @@ function SEO({ description, lang, meta, title }) {
           content: `${site.siteMetadata.siteUrl}${pathname}`,
         },
         {
+          property: `og:image`,
+          content: `/roy_portas.png`,
+        },
+        {
           name: `twitter:card`,
           content: `summary`,
         },

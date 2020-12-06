@@ -60,6 +60,7 @@ const Header = ({ siteTitle }) => {
           <Img
             fixed={data.profile.childImageSharp.fixed}
             style={{ marginRight: "1rem" }}
+            alt="Roy Portas"
           />
           <Link
             to="/"
