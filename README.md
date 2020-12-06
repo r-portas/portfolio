@@ -2,7 +2,9 @@
   Roy's Portfolio
 </h1>
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/907cadad-76da-4bef-8006-fe6a3f2b6410/deploy-status)](https://app.netlify.com/sites/festive-saha-57f2dc/deploys)
+![GitHub deployments](https://img.shields.io/github/deployments/r-portas/portfolio-new/Production?label=deployment&style=for-the-badge)
+
+![GitHub](https://img.shields.io/github/license/r-portas/portfolio-new?style=for-the-badge)
 
 This portfolio is built using Gatsby.
 
