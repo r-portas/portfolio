@@ -76,7 +76,7 @@ function SEO({ description, lang, meta, title }) {
         },
         {
           property: `og:image`,
-          content: `/roy_portas.png`,
+          content: `${site.siteMetadata.siteUrl}/roy_portas.png`,
         },
         {
           name: `twitter:card`,

@@ -6,7 +6,7 @@ if (process.env.NODE_ENV === `production`) {
 module.exports = {
   siteMetadata: {
     title: `Roy Portas`,
-    description: `The portfolio and blog of Roy Portas`,
+    description: `Blog of Roy Portas, Senior Frontend Developer`,
     author: `Roy Portas`,
     authorTwitter: `RoyPortas`,
     siteUrl: "https://beta.royportas.com",
