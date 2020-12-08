@@ -6,8 +6,8 @@ const TagBadge = ({ tag }) => {
   return (
     <Link
       to={`/tags/${kebabCase(tag)}/`}
-      className="badge badge-primary"
-      style={{ margin: "5px" }}
+      className="badge bg-secondary"
+      style={{ margin: "5px", fontSize: "1rem", textDecoration: "none" }}
     >
       {tag}
     </Link>

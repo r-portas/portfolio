@@ -66,7 +66,7 @@ const Header = ({ siteTitle }) => {
             to="/"
             style={{
               textDecoration: "none",
-              fontSize: "1.5rem",
+              fontSize: "2rem",
             }}
           >
             Roy Portas
