@@ -39,7 +39,7 @@
     "sass": "^1.30.0"
   },
   "devDependencies": {
-    "prettier": "2.1.2"
+    "prettier": "2.2.1"
   },
   "license": "MIT",
   "scripts": {
