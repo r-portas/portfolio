@@ -1,0 +1,47 @@
+---
+title: Linux on the Dell Inspiron 15 5000
+tags:
+  - Linux
+  - Laptops
+date: "2020-12-09"
+---
+
+My main laptop used to be a mid-2014 Macbook Pro running Fedora 33, but after getting fed up enough with some issues it was having (screen flickering randomly, average wifi quality),
+I decided to buy a new laptop.
+
+I mostly use my laptop for development, which involves running a variety of docker containers or more recently a local kubernetes cluster (using [k3d](https://k3d.io)).
+My old laptop had a i5 with 8GB of RAM and a 120GB SSD, which was more than enough for the workloads I ran, I still am quite impressed by how much I could run on that 6 year old laptop.
+Though I give a lot of the credit to the operating system, Fedora ran on that machine like a dream, unlike MacOS which made the machine much slower with each update.
+
+Dell was having a sale on laptops with previous generation Intel CPUs, so I managed to pick one up for nearly half price.
+I wasn't too worried about it being an older generation CPU, mainly cause I don't do many CPU intensive tasks and the 6 year old i5 I used to have served me fine.
+I was originally going to get an i5 in my new laptop, but found I had to upgrade to the i7 model to be able to get 16GB of RAM.
+
+The ordering experience was pretty straight forward and seemless, I ordered online and didn't experience any issues.
+It took me about a month to get the laptop shipped, which seems long but I was fine with (as the laptop had to be built in China, shipped overseas during a pandemic).
+It arrived in nice cardboard packaging and big props for using materials that are easy to recycle, it came in a plain cardboard box with a cardboard brace instead of plastic foam.
+
+## Hardware
+
+The hardware itself is nice, the Inspiron line is the cheap end of the spectrum, but I like the simplicity it offers,
+theres no touch screen, no glass screens, no 4K displays (to improve battery life and app compatibility).
+
+The thing I probably dislike the most is the keyboard, being a 15" laptop they installed a full keyboard with the numpad,
+I would have preferred if they did the Apple approach of removing the numpad and centering the keyboard, but I guess that is preference.
+
+## Linux Support
+
+The Linux support is top notch, there was some quirks getting it running, namely:
+
+- Had to disable software RAID in the BIOS, which was on by default. Switching it to AHCI fixed it (apparently this is because older OSs like win7 didn't support NVMe drives)
+- Disable secure boot (for unsigned kernel modules, e.g. virtualbox)
+
+Overall though, the laptop runs Fedora 33 great and the following works without hiccups:
+
+- Wifi
+- Bluetooth
+- Really good battery life
+- Webcam
+- Sleep/Suspend
+
+I'm over the moon by having a laptop that runs Linux and has working sleep!
