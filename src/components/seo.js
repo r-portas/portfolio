@@ -29,7 +29,7 @@ function SEO({ description, lang, meta, title }) {
     `
   )
 
-  const googleMeasurementId = process.env.GOOGLE_MEASUREMENT_ID
+  const googleMeasurementId = process.env.GATSBY_GOOGLE_MEASUREMENT_ID
 
   // Check if window is defined, for server side rendered handling
   if (typeof window != "undefined" && googleMeasurementId) {
