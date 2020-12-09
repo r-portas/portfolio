@@ -1,0 +1,12 @@
+{
+  "routes": [
+    {
+      "src": "/posts/cors-python/",
+      "dest": "/posts/2019-03-02-cors-python/"
+    },
+    {
+      "src": "/posts/install-linux-on-external-hdd/",
+      "dest": "/posts/2019-06-06-install-linux-on-external-hdd/"
+    }
+  ]
+}
