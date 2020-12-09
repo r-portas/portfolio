@@ -29,19 +29,17 @@ function SEO({ description, lang, meta, title }) {
     `
   )
 
-  const panelbearId = process.env.GATSBY_PANELBEAR_SITE_ID
+  const googleMeasurementId = process.env.GOOGLE_MEASUREMENT_ID
 
   // Check if window is defined, for server side rendered handling
-  if (typeof window != "undefined" && panelbearId) {
-    window.panelbear =
-      window.panelbear ||
-      function () {
-        if (!window.panelbearQ) {
-          window.panelbearQ = []
-        }
-        window.panelbearQ.push(arguments)
-      }
-    window.panelbear("config", { site: panelbearId })
+  if (typeof window != "undefined" && googleMeasurementId) {
+    window.dataLayer = window.dataLayer || []
+    function gtag() {
+      dataLayer.push(arguments)
+    }
+    gtag("js", new Date())
+
+    gtag("config", "G-B65LFP2P64")
   }
 
   const metaDescription = description || site.siteMetadata.description
@@ -96,10 +94,10 @@ function SEO({ description, lang, meta, title }) {
         },
       ].concat(meta)}
     >
-      {panelbearId && (
+      {googleMeasurementId && (
         <script
           async
-          src={`https://cdn.panelbear.com/analytics.js?site=${panelbearId}`}
+          src={`https://www.googletagmanager.com/gtag/js?id=${googleMeasurementId}`}
         ></script>
       )}
     </Helmet>
