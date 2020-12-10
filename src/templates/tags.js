@@ -12,7 +12,7 @@ const Tags = ({ pageContext, data }) => {
 
   return (
     <Layout>
-      <SEO title="Posts" />
+      <SEO title={tag} />
       <h1>{tagHeader}</h1>
       <ul>
         {edges.map(({ node }) => {

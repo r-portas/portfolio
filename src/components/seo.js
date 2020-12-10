@@ -35,14 +35,14 @@ function SEO({ description, lang, meta, title }) {
   if (typeof window != "undefined" && googleMeasurementId) {
     window.dataLayer = window.dataLayer || []
     function gtag() {
-      dataLayer.push(arguments)
+      window.dataLayer.push(arguments)
     }
     gtag("js", new Date())
 
     gtag("config", "G-B65LFP2P64")
   }
 
-  const metaDescription = description || site.siteMetadata.description
+  const metaDescription = description || `${title} | ${site.siteMetadata.title}`
 
   return (
     <Helmet

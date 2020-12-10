@@ -7,13 +7,10 @@ import Layout from "../components/layout"
 const TagsPage = ({
   data: {
     allMdx: { group },
-    site: {
-      siteMetadata: { title },
-    },
   },
 }) => (
   <Layout>
-    <SEO title={title} />
+    <SEO title="Tags" />
     <div>
       <h1>Tags</h1>
       <ul>
@@ -33,11 +30,6 @@ export default TagsPage
 
 export const pageQuery = graphql`
   query {
-    site {
-      siteMetadata {
-        title
-      }
-    }
     allMdx {
       group(field: frontmatter___tags) {
         fieldValue
