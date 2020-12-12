@@ -1,0 +1,30 @@
+---
+title: Linux on the Lenovo 100s
+tags:
+  - Linux
+  - Laptops
+date: "2020-12-12"
+---
+
+## Downloading Debian
+
+The Lenovo 100s is a Intel Baytrail device. One of those strange machines which has a 64 bit processor but a 32 bit UEFI BIOS.
+This causes problems when trying to install Linux.
+
+Fedora has supported 32 bit UEFI in their standard install image for a while, so any recent image should work without issue.
+
+Ubuntu won't work, as they haven't included the 32 bit version of the bootloader. Its possible to add it in manually.
+
+Debian has a multi-arch ISO variant, which works with both 32bit and 64bit systems.
+
+I ended up using Debian, and there was a few tricks to downloading the right copy:
+
+- Make sure to download the **multiarch** CD
+- Make sure to download the image that includes **non-free firmware**, otherwise the Wifi chipset won't work.
+
+I downloaded [this image](https://cdimage.debian.org/cdimage/unofficial/non-free/cd-including-firmware/current/multi-arch/iso-cd/)
+
+## Installing Debian
+
+The Debian install process works is the same as usual, except I ran into one issue.
+I found that the laptop failed to connect to my Wifi when I choose the network in the installer, if I choose the "Specify SSID" option and manually type in the name of the network, it successfully connects.
