@@ -10,6 +10,14 @@ import TagBadge from "../components/tagBadge"
 const shortcodes = { Link } // Provide common components here
 
 const Page = ({ data: { mdx } }) => {
+  mdx.frontmatter.tags.forEach(tag => {
+    if (window.gtag) {
+      window.gtag("event", "post_category", {
+        category: tag,
+      })
+    }
+  })
+
   return (
     <Layout>
       <SEO title={mdx.frontmatter.title} />
