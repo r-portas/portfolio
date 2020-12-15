@@ -11,13 +11,15 @@ const shortcodes = { Link } // Provide common components here
 
 const Page = ({ data: { mdx } }) => {
   if (typeof window != "undefined") {
-    mdx.frontmatter.tags.forEach(tag => {
-      if (window.gtag) {
-        window.gtag("event", "post_category", {
-          category: tag,
-        })
-      }
-    })
+    if (mdx.frontmatter.tags) {
+      mdx.frontmatter.tags.forEach(tag => {
+        if (window.gtag) {
+          window.gtag("event", "post_category", {
+            category: tag,
+          })
+        }
+      })
+    }
   }
 
   return (
