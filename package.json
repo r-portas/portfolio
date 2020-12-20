@@ -38,10 +38,13 @@
     "sass": "^1.30.0"
   },
   "devDependencies": {
+    "date-fns": "^2.16.1",
+    "inquirer": "^7.3.3",
     "prettier": "2.2.1"
   },
   "license": "MIT",
   "scripts": {
+    "create-post": "node scripts/create-post.js",
     "build": "gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",

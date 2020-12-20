@@ -8,6 +8,7 @@ import TagBadge from "../components/tagBadge"
 
 const PostsPage = ({ data }) => {
   const { edges: posts } = data.allMdx
+
   return (
     <Layout>
       <SEO title="Posts" />
