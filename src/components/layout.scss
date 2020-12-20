@@ -13,4 +13,14 @@ $primary: rgb(171, 185, 207);
 //   font-family: "Overpass Mono", monospace;
 // }
 
+.gatsby-highlight-code-line {
+  background-color: #434c5e;
+  display: block;
+  margin-right: -1em;
+  margin-left: -1em;
+  padding-right: 1em;
+  padding-left: 0.75em;
+  border-left: 0.25em solid #5e81ac;
+}
+
 @import "~bootstrap/scss/bootstrap";
