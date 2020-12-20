@@ -1,0 +1,247 @@
+---
+title: Building a REST API with Python, Flask and SQLAlchemy - Part 1
+tags:
+date: "2020-12-20"
+---
+
+I wanted to build a simple API and web app for meal planning with a twist. I wanted a service which could generate a weekly recipe list, finding the best way to reuse ingredients to minimize the amount of food waste and ingredients I have to buy from the shops.
+
+To do this, I wanted to try out some frameworks I haven't used in a while, namely:
+
+- Flask for the API
+- SQLAlchemy for the ORM
+
+The point of this series is to provide a step by step guide to building a fully fledged API. In Part 1 we will setup Flask and add a sample route, as well as using python-dotenv for loading in configuration.
+
+## Setup
+
+I'm wanted to give [poetry](https://python-poetry.org/) a go for dependency management in this project, I followed the [instructions page](https://python-poetry.org/docs/#installation) to install it.
+
+To get started, I'm gonna create a new project using
+
+```bash
+poetry new backend
+```
+
+This will create the following directory structure:
+
+```bash
+backend
+├── backend
+│   └── __init__.py
+├── pyproject.toml
+├── README.rst
+└── tests
+    ├── __init__.py
+    └── test_backend.py
+```
+
+Neat! Looks like a sensible file structure to get started with, now lets add some libraries we are using.
+
+If your new to Python, the folder structure might look new to you, heres the important bits:
+
+- The `backend` and `tests` directories are Python package (denoted by the `__init__.py` file)
+- `pyproject.toml` is used by Poetry to manage the dependencies
+
+Now lets add the Flask package with the following command in a terminal
+
+```bash
+ poetry add Flask
+```
+
+Next I'll add a basic Flask app to test everything out, which will just be the minimal example from [Flask's documentation](https://flask.palletsprojects.com/en/1.1.x/quickstart/#a-minimal-application), which will be added to `backend/__init__.py`
+
+```python
+# backend/__init__.py
+
+from flask import Flask
+app = Flask(__name__)
+
+@app.route('/')
+def hello_world():
+    return 'Hello, World!'
+```
+
+which can be tested by running the following in a terminal.
+
+NOTE: If your on Windows, the `export` part will be different, [see here for info](https://flask.palletsprojects.com/en/1.1.x/quickstart/#a-minimal-application)
+
+```bash
+[roy@localhost backend]$ export FLASK_APP=backend
+[roy@localhost backend]$ poetry run flask run
+ * Serving Flask app "backend"
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+```
+
+In a new terminal, we can test the app by curling the following address
+
+```bash
+[roy@localhost backend]$ curl localhost:5000
+Hello, World!
+```
+
+It worked! Awesome! Its worth noting that the above command should only be used for development, Flask has [some documentation for deploying it properly](https://flask.palletsprojects.com/en/1.1.x/deploying/#deployment)
+
+**Additional Reading**:
+
+- [Poetry Documentation](https://python-poetry.org/docs/)
+- [Flask Quickstart Guide](https://flask.palletsprojects.com/en/1.1.x/quickstart/#quickstart)
+
+## Structuring Applications with Blueprints
+
+Blueprints allow you split up your routes, which is handy for dividing your application into more maintainable bits, lets start by making a super simple blueprint called `ingredients` that we will build upon later.
+
+Lets start by creating the following directory structure, the **bolded** bits are new
+
+```bash
+backend
+├── backend
+│   ├── __init__.py
+# highlight-start
+│   └── modules
+│       └── ingredients.py
+# highlight-end
+├── poetry.lock
+├── pyproject.toml
+├── README.rst
+└── tests
+    ├── __init__.py
+    └── test_backend.py
+```
+
+So this is what happened:
+
+- Created the `modules` directory in the `backend` package
+- Create a blank `[ingredients.py](http://ingredients.py)` file
+
+Now lets create a blueprint inside the `[ingredients.py](http://ingredients.py)` file
+
+```python
+# backend/modules/ingredients.py
+from flask import Blueprint
+
+ingredients = Blueprint("ingredients", __name__)
+
+@ingredients.route("/")
+def get_ingredients():
+    return "Hello world from ingredients
+```
+
+This will create a basic blueprint for things related to ingredients, at the moment it contains just one route, mounted at `/`
+
+Now lets use the blueprint in our application by making the following changes to `backend/__init__.py`
+
+```python
+# backend/__init__.py
+__version__ = '0.1.0'
+
+from flask import Flask
+# highlight-line
+from .modules.ingredients import ingredients
+app = Flask(__name__)
+
+# highlight-start
+# Register blueprints
+app.register_blueprint(ingredients, url_prefix="/ingredients")
+# highlight-end
+
+@app.route('/')
+def hello_world():
+    return 'Hello, World!
+```
+
+The **bolded** lines are added, in essense we just import the blueprint, register it and give it a url prefix of `/ingredients`
+
+Next we can test that we can hit the new endpoint by running the following using curl
+
+```bash
+[roy@localhost backend]$ curl localhost:5000/ingredients/
+Hello world from ingredients
+```
+
+Awesome! That means our url routing it working correctly!
+
+**Additional Reading**:
+
+- [Flask Blueprints](https://flask.palletsprojects.com/en/1.1.x/blueprints/#modular-applications-with-blueprints)
+
+## Configuration Management
+
+The next step is to setup configuration management, a place to store configuration such as database connection strings, without hardcoding them inside our app. This means we can later package the app into a Docker container much easier, among other benefits.
+
+I'm gonna use [python-dotenv](https://pypi.org/project/python-dotenv/), `.env` is a popular method for storing configuration and has implemntations in a lot of different languages. To get started, lets install the package using the following command
+
+```bash
+ poetry add python-dotenv
+```
+
+Next lets configure dotenv in our `backend/__init__.py` file by adding the following, the **bolded** bit was added.
+
+```python
+# backend/__init__.py
+__version__ = '0.1.0'
+
+# highlight-start
+from dotenv import load_dotenv
+load_dotenv()
+# highlight-end
+
+from flask import Flask
+from .modules.ingredients import ingredients
+
+app = Flask(__name__)
+
+# Register blueprints
+app.register_blueprint(ingredients, url_prefix="/ingredients")
+
+@app.route('/')
+def hello_world():
+    return 'Hello, World!'
+```
+
+Next we will create a dummy `.env` file to check that our variables are read correctly, lets start by creating a `.env` file in the top level of the project containing the following:
+
+```bash
+# .env
+GREETING=Hello world!
+```
+
+`python-dotenv` will load the .env file into environment variables, so in the above example it will create a new environment variable called `GREETING` with the value "Hello world!".
+
+Next lets reference the `GREETING` environment variable from our ingredients module, like so
+
+```python
+# backend/modules/ingredients.py
+from flask import Blueprint
+# highlight-line
+from os import getenv
+
+ingredients = Blueprint("ingredients", __name__)
+
+@ingredients.route("/")
+def get_ingredients():
+    # highlight-start
+    greeting = getenv("GREETING")
+    return greeting + " from ingredients"
+    # highlight-end
+```
+
+Next we can test that we can see the greeting when we hit the endpoint using the following curl command
+
+```bash
+[roy@localhost backend]$ curl localhost:5000/ingredients/
+Hello world! from ingredients
+```
+
+So that shows the greeting we defined in the `.env` file, so it looks like everything is good to go. Now we will move onto setting up a database.
+
+Thats it for Part 1, in Part 2 we will cover setting up the SQLAlchemy to store data in a database.
+
+**Additional Reading**:
+
+- [python-dotenv Github](https://github.com/theskumar/python-dotenv)
+- [12 Factor App Configuration](https://12factor.net/config)
