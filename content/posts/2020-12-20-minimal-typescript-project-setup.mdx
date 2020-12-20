@@ -1,0 +1,104 @@
+---
+title: Minimal Typescript Project Setup
+tags:
+  - Typescript
+  - NodeJS
+date: "2020-12-20"
+---
+
+I find that setting up a Typescript project usually takes some time, as it involves doing some googling to figure out how to set up all the tools. I figured I do it enough that its worth writing a quick reference for getting set up.
+
+```bash
+mkdir myproject
+cd myproject
+npm init
+```
+
+Once that is done, lets add some dependencies
+
+```bash
+npm i -D typescript ts-node @types/node
+```
+
+Now lets create a `tsconfig.json` to store our Typescript configuration
+
+```json
+// tsconfig.json
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "strict": true,
+    "outDir": "./dist"
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/*.test.ts"]
+}
+```
+
+This is a fairly minimal `tsconfig.json` that can be extended if need be.
+
+Lets create an entrypoint for our program, create a new folder called `src` and create a file called `main.ts` inside it
+
+```ts
+// src/main.ts
+console.log("Hello world!")
+```
+
+Now we will add some scripts to the `package.json`
+
+```json
+// package.json
+{
+  ...
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node src/main.ts"
+  }
+}
+```
+
+Now you should be able to run `npm run dev` and see "Hello world!" printed to the screen.
+
+## Setting up testing with Jest (optional)
+
+Its always good practise to write some tests, next lets add Jest to our project and configure it
+
+```bash
+npm i -D jest ts-jest @types/jest
+```
+
+Now lets create configuration file for Jest
+
+```js
+// jest.config.js
+module.exports = {
+  preset: "ts-jest",
+  testEnvironment: "node",
+}
+```
+
+After that, add a entry in your `package.json` to execute the tests
+
+```js
+// package.json
+{
+  ...
+  "scripts": {
+    ...
+    "test": "jest"
+  }
+}
+```
+
+Next create a sample test to verify that Jest works correctly
+
+```ts
+// src/example.test.ts
+test("sample test", () => {
+  expect(1 + 1).toEqual(2)
+})
+```
+
+Then run `npm run test`
+
+If it all works correctly, you'll see the test output and the tests passing.
