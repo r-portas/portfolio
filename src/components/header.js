@@ -48,6 +48,7 @@ const Header = ({ siteTitle }) => {
           <StaticImage
             src="../images/roy-face-round.png"
             alt="Roy Portas"
+            placeholder="blurred"
             style={{ marginRight: "1rem" }}
             height={80}
             width={80}
