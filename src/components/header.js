@@ -49,6 +49,8 @@ const Header = ({ siteTitle }) => {
             src="../images/roy-face-round.png"
             alt="Roy Portas"
             style={{ marginRight: "1rem" }}
+            height={80}
+            width={80}
           />
           <Link
             to="/"
