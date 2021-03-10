@@ -1,7 +1,7 @@
 import React from "react"
-import { Link, useStaticQuery, graphql } from "gatsby"
+import { Link } from "gatsby"
 import PropTypes from "prop-types"
-import Img from "gatsby-image"
+import { StaticImage } from "gatsby-plugin-image"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
   faGithub,
@@ -37,18 +37,6 @@ const LinkIcon = ({ icon, href, ariaLabel }) => {
 }
 
 const Header = ({ siteTitle }) => {
-  const data = useStaticQuery(graphql`
-    query {
-      profile: file(relativePath: { eq: "roy-face-round.png" }) {
-        childImageSharp {
-          fixed(height: 60) {
-            ...GatsbyImageSharpFixed_withWebp_noBase64
-          }
-        }
-      }
-    }
-  `)
-
   return (
     <header
       style={{
@@ -57,10 +45,10 @@ const Header = ({ siteTitle }) => {
     >
       <div className="header-container">
         <div className="header-profile">
-          <Img
-            fixed={data.profile.childImageSharp.fixed}
-            style={{ marginRight: "1rem" }}
+          <StaticImage
+            src="../images/roy-face-round.png"
             alt="Roy Portas"
+            style={{ marginRight: "1rem" }}
           />
           <Link
             to="/"

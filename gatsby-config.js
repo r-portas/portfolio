@@ -13,6 +13,9 @@ module.exports = {
   },
   plugins: [
     `gatsby-plugin-pnpm`,
+    `gatsby-plugin-image`,
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
@@ -29,8 +32,6 @@ module.exports = {
         ignore: ignoredFiles,
       },
     },
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
     `gatsby-remark-images`,
     {
       resolve: `gatsby-plugin-manifest`,
@@ -52,7 +53,6 @@ module.exports = {
             resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 1035,
-              sizeByPixelDensity: true,
             },
           },
           {
@@ -97,7 +97,6 @@ module.exports = {
                   edges {
                     node {
                       excerpt
-                      html
                       fields { slug }
                       frontmatter {
                         title
