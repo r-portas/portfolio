@@ -119,6 +119,14 @@ module.exports = {
         implementation: require("sass"),
       },
     },
+    {
+      resolve: "@sentry/gatsby",
+      options: {
+        dsn:
+          "https://c66c69989abe44839da4aca3a650f11c@o460665.ingest.sentry.io/5722458",
+        sampleRate: 0.7,
+      },
+    },
     `gatsby-plugin-sitemap`,
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
